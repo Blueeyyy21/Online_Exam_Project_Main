@@ -1,0 +1,70 @@
+﻿@model Online_Exam_Project_Main.Models.DrpList
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="color:white">Select Exam</h2>
+
+<div class="col-md-6">
+
+    @using (Html.BeginForm("Index", "ShowQuestion", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            
+            <hr />
+            @Html.ValidationSummary(true)
+
+            @Html.HiddenFor(m => m.QuestionNo, 1)
+
+            <div class="form-group" style="color:white">
+                @Html.Label("Exam ID","Exam Name", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.DropDownList("item1", ViewBag.name as SelectList, "Select Exam")*@
+
+                    @Html.DropDownListFor(m => m.examid, new SelectList(Model.Examlist, "exam_id", "exam_title"), "Select Exam")
+
+
+                    @Html.ValidationMessageFor(model => model.exam_title)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Start Exam" class="btn btn-default" />
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="col-md-6">
+    
+    <h2 style="color: white"> <u>Rules</u></h2>
+    
+    <h3 style="color:white">
+        <ul>
+            <li>For each question you have only 1 minute.</li><br>
+            <li>If you want you can skip question</li><br>
+            <li>For each corect answer you have 1 point</li>
+        </ul>
+    </h3>
+</div>
+<br>
+
+
+<style>
+    body {
+        background-image: url('/Content/image 88.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+    }
+</style>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
